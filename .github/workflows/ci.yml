@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions: read-all
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Validate formula syntax
+        run: ruby -c Formula/sbom-tools.rb
+
+      - name: Audit formula
+        run: brew audit --formula Formula/sbom-tools.rb
+
+  install-test:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install from formula
+        run: |
+          brew install --build-from-source Formula/sbom-tools.rb
+
+      - name: Run formula tests
+        run: |
+          brew test sbom-tools
+
+      - name: Verify binary works
+        run: |
+          sbom-tools --version
+          sbom-tools --help
