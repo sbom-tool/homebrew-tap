@@ -20,8 +20,11 @@ jobs:
       - name: Validate formula syntax
         run: ruby -c Formula/sbom-tools.rb
 
-      - name: Audit formula
-        run: brew audit --formula Formula/sbom-tools.rb
+      - name: Tap and audit formula
+        run: |
+          brew tap-new --no-git sbom-tool/tap
+          cp Formula/sbom-tools.rb "$(brew --repository sbom-tool/tap)/Formula/"
+          brew audit --formula sbom-tool/tap/sbom-tools
 
   install-test:
     runs-on: macos-latest
@@ -31,13 +34,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Install from formula
+      - name: Tap local checkout
         run: |
-          brew install --build-from-source Formula/sbom-tools.rb
+          mkdir -p "$(brew --prefix)/Homebrew/Library/Taps/sbom-tool"
+          ln -s "$GITHUB_WORKSPACE" "$(brew --prefix)/Homebrew/Library/Taps/sbom-tool/homebrew-tap"
+
+      - name: Install from formula
+        run: brew install --build-from-source sbom-tool/tap/sbom-tools
+        timeout-minutes: 15
 
       - name: Run formula tests
-        run: |
-          brew test sbom-tools
+        run: brew test sbom-tool/tap/sbom-tools
 
       - name: Verify binary works
         run: |
