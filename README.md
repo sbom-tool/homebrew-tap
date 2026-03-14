@@ -8,6 +8,8 @@ Homebrew formulae for [sbom-tools](https://github.com/sbom-tool/sbom-tools) — 
 brew install sbom-tool/tap/sbom-tools
 ```
 
+Homebrew builds from source and verifies the source tarball SHA256 automatically. No manual verification is needed.
+
 ## Upgrading
 
 ```sh
@@ -15,17 +17,15 @@ brew update
 brew upgrade sbom-tools
 ```
 
-## Verification
+## Verifying pre-built binary downloads
 
-Each release archive is signed with [Sigstore](https://www.sigstore.dev/) keyless signing and has [GitHub build attestations](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds).
-
-### Verify a pre-built binary download
+If you download pre-built binaries from [GitHub Releases](https://github.com/sbom-tool/sbom-tools/releases) instead of using Homebrew, each archive is signed with [Sigstore](https://www.sigstore.dev/) and has a [GitHub build attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds):
 
 ```sh
-# Verify Sigstore signature
+# Verify Sigstore signature (replace version tag)
 cosign verify-blob \
   --bundle sbom-tools-aarch64-apple-darwin.tar.gz.bundle \
-  --certificate-identity-regexp 'https://github\.com/sbom-tool/sbom-tools/' \
+  --certificate-identity 'https://github.com/sbom-tool/sbom-tools/.github/workflows/publish-crates.yml@refs/tags/v0.1.14' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
   sbom-tools-aarch64-apple-darwin.tar.gz
 
