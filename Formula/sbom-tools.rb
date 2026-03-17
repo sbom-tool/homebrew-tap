@@ -1,8 +1,8 @@
 class SbomTools < Formula
   desc "Semantic SBOM diff and analysis tool"
   homepage "https://github.com/sbom-tool/sbom-tools"
-  url "https://github.com/sbom-tool/sbom-tools/archive/refs/tags/v0.1.15.tar.gz"
-  sha256 "6ed170d167444adcfb6e55a88df46f3b33bc9c04748c40331509c3dab11452fc"
+  url "https://github.com/sbom-tool/sbom-tools/archive/refs/tags/v0.1.16.tar.gz"
+  sha256 "03a121cb0edf042280264a81a896c96515139eaba9fb6f172e35c65068d8a528"
   license "MIT"
 
   depends_on "rust" => :build
