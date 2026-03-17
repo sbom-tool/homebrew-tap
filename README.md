@@ -24,13 +24,13 @@ If you download pre-built binaries from [GitHub Releases](https://github.com/sbo
 ```sh
 # Verify Sigstore signature (replace version tag)
 cosign verify-blob \
-  --bundle sbom-tools-aarch64-apple-darwin.tar.gz.bundle \
-  --certificate-identity 'https://github.com/sbom-tool/sbom-tools/.github/workflows/publish-crates.yml@refs/tags/v0.1.14' \
+  --bundle sbom-tools-macos-aarch64.tar.gz.bundle \
+  --certificate-identity 'https://github.com/sbom-tool/sbom-tools/.github/workflows/publish-crates.yml@refs/tags/v0.1.15' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-  sbom-tools-aarch64-apple-darwin.tar.gz
+  sbom-tools-macos-aarch64.tar.gz
 
 # Verify GitHub attestation
-gh attestation verify sbom-tools-aarch64-apple-darwin.tar.gz \
+gh attestation verify sbom-tools-macos-aarch64.tar.gz \
   --repo sbom-tool/sbom-tools
 ```
 
