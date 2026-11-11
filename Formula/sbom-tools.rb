@@ -2,9 +2,9 @@ class SbomTools < Formula
   desc "Semantic SBOM diff and analysis tool"
   homepage "https://github.com/sbom-tool/sbom-tools"
   # URL pinned to immutable commit SHA (not mutable tag) for supply chain safety
-  url "https://github.com/sbom-tool/sbom-tools/archive/432f6d562b81a5e06e601e9b318c9d4ffcb31edd.tar.gz"
-  version "0.3.0"
-  sha256 "7bf684f95e6827fb43ca1d23088827e15bdf256936edfce5218194ca439c96d4"
+  url "https://github.com/sbom-tool/sbom-tools/archive/7fe05e139f7626f4871595661a712dc92166592a.tar.gz"
+  version "0.4.0"
+  sha256 "41d510f2bb12dfc722943114da277683c716fbd0b2d8772a740d46320980530c"
   license "MIT"
 
   depends_on "rust" => :build
